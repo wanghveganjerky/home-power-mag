@@ -18,31 +18,51 @@ async function fetchWeatherData() {
       
         const myValue = result.current.temp_c;
         console.log("My Value: " + myValue);
+
+          
+        const myValue2 = result.current.cloud;
+        console.log("My Value 2: " + myValue2);
       
-        const nowTemp = document.createElement('h2');
-        nowTemp.textContent = `Current Temperature: ${myValue}°C`;
-        document.body.appendChild(nowTemp);
+        // const nowTemp = document.createElement('h2');
+        // nowTemp.textContent = `Current Temperature: ${myValue}°C`;
+        // document.body.appendChild(nowTemp);
 
     
         const fontWeight = result.current.temp_c * 50;
         console.log("Font Weight: " + fontWeight); 
+
+        const windSpeed = result.current.cloud * 50;
+        console.log("windspeed: " + windSpeed); 
+
         const styleSheetContent = `
         h1 {
             font-variation-settings: "wght" 100;
-            animation: breathe 10000ms infinite forwards;
+            animation: breathe 60000ms infinite forwards;
         }
         @keyframes breathe {
             0% {
                 font-variation-settings: "wght" 100;
             }
             60% {
-                font-variation-settings: "wght" ${fontWeight};
+                font-variation-settings: "wght" ${fontWeight}; /* adjust the duration based on wind speed */
             }
             100% {
                 font-variation-settings: "wght" 100;
             }
         }
     `;
+        
+
+        const styleSheetContent2 = `
+        .sunContainer {
+        animation-duration: ${500000 / windSpeed}s;  /* adjust the duration based on wind speed */
+        }
+        `;
+        const styleSheet2 = document.createElement("style");
+        styleSheet2.type = "text/css";
+        styleSheet2.innerText = styleSheetContent2;
+        document.head.appendChild(styleSheet2);
+
         const styleSheet = document.createElement("style");
         styleSheet.type = "text/css";
         styleSheet.innerText = styleSheetContent;
